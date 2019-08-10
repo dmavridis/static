@@ -3,11 +3,9 @@ pipeline {
     stages {
         stage('Upload to AWS') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
+                withAWS(region:'us-east-1', 'credentials': 'AKIA5QZZZ47OO6PXKRWA') {
+                    s3Upload(file:'index.html', bucket:'jenkinspipelines082019', path:'/index.html')
+                }
             }
         }
     }
